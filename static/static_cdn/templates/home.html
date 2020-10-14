@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block styles %}
+<style>
+{{ block.super }}
+</style>
+
+{% endblock styles %}
+{% block content %}
+
+<h1 class="cover-heading">wjurl.com </h1>
+    <p class='lead'>Shorten that URL</p>
+<p class="lead">
+     <div class='col-sm-6 col-sm-offset-3'> 
+                <form method='POST' action='.'> {% csrf_token %}
+                    <!-- <input name='url' type='text' placeholder='Shorten your URL like http://www.codingforentrepreneurs.com' /> -->
+                    {{ form.as_p }}
+                    <input class='btn btn-primary' type='submit' value='Shorten &raquo;' >
+                </form>
+            </div>
+</p>
+
+
+{% endblock content %}

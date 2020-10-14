@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block title %}
+Analytics | {{ block.super }} 
+{% endblock title %}
+
+{% block content %}
+<header>
+    <div id="top">
+    <div id="logo"><a href="{% url 'home'%}" class="logo">Short URL</a></div>
+    </div>
+</header>
+
+<main>
+
+
+
+<div class='container' style='max-width:780px; min-height:70vh;'>
+<section id="content">
+<h1 style='font-weight: 600;'>URL Click Counter</h1>
+<p>Enter the URL to find out how many clicks it has received so far.</p>
+</section>
+  <section id="urlbox">
+    <br><br>
+    <div class='container counter-form'>
+      <form  action='' method='post' style="max-width: 600px;"> {% csrf_token %}
+        <div class='input-group'>
+          {{form.url}}<div class="input-group-append">
+          <button class='btn btn-primary custom-btn counter-btn  '  type='submit'  style="border-radius: 4px;" > Track Clicks </button>
+          </div>
+        </div>
+      </form>
+
+    </div><br><br>
+    {% if messages %} 
+        {% for mes in messages %} <p style='color:red'> {{mes}}</p>
+        {% endfor %}
+    {% endif %}
+    <p >Example 1: <b>https://www.wjurl.uz/1Qa2D </b><br>
+        Example 2: <b>https://wjurl.uz/1Qa2D</b><br>
+        Example 3: <b>www.wjurl.uz/1Qa2D</b>  or just <b>wjurl.uz/1Qa2D</b>
+        <br></p>
+</section>
+<br>
+<p>   * Track the total hits of the shortened URL in real time, you do not have to register.</p>
+
+
+</main>
+
+
+{% endblock content %}

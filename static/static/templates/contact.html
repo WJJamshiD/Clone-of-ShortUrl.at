@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% load crispy_forms_tags %}
+{% block title %}
+Contact Us | {{ block.super }} 
+{% endblock title %}
+
+{% block styles %}
+    body{
+        font-size:18px;
+    }
+{% endblock styles %}
+
+{% block content %}
+    <header>
+        <div id="top">
+            <div id="logo"><a href="{%url 'home'%}" class="logo">Short URL</a></div>
+        </div>
+    </header>
+
+    <main class='count'>
+        <div class='container' style='max-width:780px; min-height: 67vh;'>
+            <section id="content" class='row'>
+                <div class='col-md-6 offset-md-3'>
+                    <h1 style='font-weight: 600;'>Contact our Team</h1>
+                    {% if messages %}
+                    {% for mes in messages  %}
+                    <div class="alert alert-success">{{mes}}
+                    </div>
+                    {% endfor %}
+                    {% endif %}
+                    <form action='' method='post'> {% csrf_token %}
+                        <div class="form-group">
+                             {{ form.username|as_crispy_field }}
+                        </div>
+                        <div class="form-group">
+                             {{ form.email|as_crispy_field }}
+                        </div>
+                        <div class="form-group">
+                             {{ form.content|as_crispy_field }}
+                        </div>
+                        <input type='hidden' name='math1' value={{math1}} />
+                        <div class="formtext form-group">
+                            {{mathquiz}} = 
+                            {% if form.math.errors %}
+                            <input name="math" type="text" style="width: 100%; max-width: 40px; border-color:red;" required>
+                            <div  style='color:red; font-weight:400;'> {{form.math.errors}}</div>
+                            {% else %}
+                            <input name="math" type="text" style="width: 100%; max-width: 40px;"  required>
+                            {% endif %}
+                        </div>
+                        <div class='buttons'>
+                        <button type="submit" class="btn btn-primary ">Send</button>
+                        <button type="reset" class="btn btn-primary " >Clean</button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+        </div>
+    </main>
+{% endblock content %}

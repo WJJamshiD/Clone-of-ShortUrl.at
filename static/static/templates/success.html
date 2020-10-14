@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+
+{% block title %}
+Main | {{ block.super }} 
+{% endblock title %}
+
+{% block content %}
+<header>
+    <div id="top">
+    <div id="logo"><a href="{%url 'home'%}" class="logo">Short URL</a></div>
+    </div>
+</header>
+
+<main>
+
+
+<script type="text/javascript">
+  var clipboard = new Clipboard('.copy');
+</script>
+<script type="text/javascript">
+function copy(){
+  /* Get the text field */
+
+  var copyText = document.getElementById("shorturl");
+
+  /* Select the text field */
+  copyText.select();
+  copyText.setSelectionRange(0, 99999); /*For mobile devices*/
+
+  /* Copy the text inside the text field */
+  document.execCommand("copy");
+
+  /* Alert the copied text */
+  alert("Copied the text: " + copyText.value);
+      
+}
+</script>
+
+<div class='container backg'>
+<section id="content">
+<h1 style='font-weight: 600;'>Your shortened URL</h1>
+<p>Copy the shortened link and share it in messages, texts, posts, websites and other locations.</p>
+</section>
+  <section id="urlbox">
+    <br><br>
+    <div class='container'>
+      <form  style="max-width: 600px;">
+        {% if messages %} 
+          {% for mes in messages %} <p style='color:red'> {{mes}}</p>
+          {% endfor %}
+        {% endif %}
+        <div class='input-group'>
+          <input type="text" class='form-control' id="shorturl" name="url" value="{{object.get_short_url}}" readonly onclick="this.select();">
+          <div class="input-group-append">
+          <button class='btn btn-primary custom-btn' type='reset'  style="border-radius: 4px;" onclick="copy()"> copy url </button>
+          </div>
+        </div>
+      </form>
+
+    </div><br><br>
+    <p class="boxtextleft">Long URL: <a href="{{object}}" target="_blank">{{object}}</a><br><br>
+
+    Track <a href="{{object.get_clicks_url}}">the total of clicks</a> in real-time from your shortened URL.</p>
+    <p class=''> Create other <a href="{%url 'home'%}">shortened URL</a>.</p>
+</section>
+  
+
+<section id="content">
+<h2 style='font-weight: 600;'>Share URL</h2>
+<div class="socialnetworkbox">
+<p>
+<a class="snb snbfacebook" href="#" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u={{object.get_short_url}}', 'facebook', 'width=800, height=600, resizable, scrollbars=yes, status=1'); return false;">Facebook</a>
+<a class="snb snbtwitter" href="#" onclick="window.open('https://twitter.com/share?url={{object.get_short_url}}', 'twitter', 'width=800, height=600, resizable, scrollbars=yes, status=1'); return false;">Twitter</a>
+<a class="snb snbpinterest" href="#" onclick="window.open('https://pinterest.com/pin/create/link/?url={{object.get_short_url}}', 'pinterest', 'width=800, height=600, resizable, scrollbars=yes, status=1'); return false;">Pinterest</a>
+<a class="snb snbtumblr" href="#" onclick="window.open('https://www.t.me/share/url?url={{object.get_short_url}}&text=Look%20at%20this!', 'tumblr', 'width=800, height=600, resizable, scrollbars=yes, status=1'); return false;">Telegram</a>
+<a class="snb snbwhatsapp" href="whatsapp://send?text={{object.get_short_url}}">WhatsApp</a>
+</p>
+</div>
+</section>
+</main>
+
+
+{% endblock content %}
